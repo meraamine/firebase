@@ -10,28 +10,21 @@ import 'firebase_options.dart';
 import 'models/authmodel.dart';
 
 
-  Future<void> main() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-    await FirebaseAuth.instance.useAuthEmulator('10.0.2.2', 9099);
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 
-    runApp(
-      ChangeNotifierProvider<AuthModel>(
-        create: (_) => AuthModel(),
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false ,
-          home: Consumer<AuthModel>(
-            builder: (_, auth, __) =>
-            auth.isSignedIn
-                ? HomePage()
-                : WelcomePage(),
-          ),
+  runApp(
+    ChangeNotifierProvider<AuthModel>(
+      create: (_) => AuthModel(),
+      child: MaterialApp(
+        home: Consumer<AuthModel>(
+          builder: (_, auth, __) => auth.isSignedIn ? HomePage() : WelcomePage(),
         ),
       ),
-    );
-  }
-
-
+    ),
+  );
+}
 
 
 
