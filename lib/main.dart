@@ -8,16 +8,19 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'models/authmodel.dart';
+import 'package:data_table_2/data_table_2.dart';
 
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FirebaseAuth.instance.useAuthEmulator('10.0.2.2', 9099);
 
   runApp(
     ChangeNotifierProvider<AuthModel>(
       create: (_) => AuthModel(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: Consumer<AuthModel>(
           builder: (_, auth, __) => auth.isSignedIn ? HomePage() : WelcomePage(),
         ),
