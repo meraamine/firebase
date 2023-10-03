@@ -13,7 +13,7 @@ class LoginPage extends StatelessWidget {
         child: ElevatedButton(
           onPressed: () async {
             final model = context.read<AuthModel>();
-            await model.signIn(email: 'meraamin.s@gmail.com', password: 'Mera/2023');
+            await model.signIn(email: 'test@test.com', password: 'test1234');
             Navigator.pop(context);
           },
           child: Text('Login'),
